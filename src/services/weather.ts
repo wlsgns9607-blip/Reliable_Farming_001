@@ -1,6 +1,7 @@
 export async function getWeatherForecast(lat: number = 37.5665, lon: number = 126.9780) {
   try {
-    const res = await fetch(`/api/weather?lat=${lat}&lon=${lon}`);
+    const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=auto`;
+    const res = await fetch(weatherUrl);
     if (!res.ok) {
       const errorData = await res.json().catch(() => ({}));
       throw new Error(errorData.details || `Weather fetch failed with status ${res.status}`);
