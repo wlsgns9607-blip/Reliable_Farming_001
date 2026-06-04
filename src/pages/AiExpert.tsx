@@ -322,7 +322,7 @@ export default function AiExpert() {
                       className="flex items-center gap-3 py-3 px-6 rounded-full border-2 border-black font-black text-2xl active:scale-95 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-[#FF9800] hover:bg-[#FFB74D] text-white"
                     >
                       <FileText size={36} className="shrink-0" />
-                      <span>답변 복사해서 일지에 올리기</span>
+                      <span>내 일지에 저장하기</span>
                     </button>
                   )}
                   <button 
@@ -383,57 +383,51 @@ export default function AiExpert() {
           </div>
         )}
 
-        <div className="flex items-center gap-4">
-          {/* Camera Button */}
-          <button 
-            onClick={handleImageClick}
-            className={`group w-16 h-16 border-2 border-black rounded-full flex items-center justify-center active:scale-95 transition-all shadow-md shrink-0 relative ${
-              selectedImage ? 'bg-green-100 border-green-600 text-green-600' : 'bg-white text-gray-800'
-            }`}
-          >
-            <Camera size={34} />
-            <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-              사진 찍기
-            </span>
-          </button>
+        <div className="flex flex-col gap-3">
+          {/* Top Row: Camera & Mic buttons (Large) */}
+          <div className="flex gap-3">
+            <button 
+              onClick={handleImageClick}
+              className={`flex-1 h-[70px] border-2 border-black rounded-[20px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md ${
+                selectedImage ? 'bg-green-100 border-green-600 text-green-600' : 'bg-white text-gray-800'
+              }`}
+            >
+              <Camera size={32} />
+              <span className="text-[22px] font-bold">{selectedImage ? '사진 변경' : '사진 첨부'}</span>
+            </button>
+            
+            <button 
+              onClick={toggleRecording}
+              className={`flex-1 h-[70px] rounded-[20px] flex items-center justify-center gap-2 border-2 border-black transition-all active:scale-95 shadow-md ${
+                isRecording 
+                  ? 'bg-red-500 border-red-600 text-white animate-pulse' 
+                  : 'bg-white text-gray-800'
+              }`}
+            >
+              <Mic size={32} />
+              <span className="text-[22px] font-bold">{isRecording ? '듣는 중...' : '음성으로 묻기'}</span>
+            </button>
+          </div>
 
-          {/* Combined Input & Mic */}
-          <div className="flex-1 bg-white border-2 border-black rounded-[24px] px-6 h-16 flex items-center gap-3 shadow-inner">
+          {/* Bottom Row: Text input & Send */}
+          <div className="flex gap-3">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder={selectedImage ? "사진에 대해 물어보세요..." : "말로 하거나 글을 써보세요..."}
-              className="w-full text-[22px] font-bold bg-transparent outline-none placeholder:text-gray-300 text-gray-800"
+              placeholder="여기를 눌러 질문하기..."
+              className="flex-1 bg-white border-2 border-black rounded-[20px] px-5 h-[70px] text-[24px] font-bold outline-none placeholder:text-gray-500 text-gray-800 shadow-inner"
             />
-            {/* Mic inside the Chat Input Bar */}
-            <button 
-              onClick={toggleRecording}
-              className={`group w-12 h-12 rounded-full flex items-center justify-center border-2 border-black transition-all shrink-0 active:scale-90 relative ${
-                isRecording 
-                  ? 'bg-red-500 border-red-600 text-white animate-pulse shadow-md' 
-                  : 'bg-white border-gray-400 text-gray-800 shadow-sm'
-              }`}
+            <button
+              onClick={handleSend}
+              disabled={isLoading || (!input.trim() && !selectedImage)}
+              className="h-[70px] px-6 bg-[#2E7D32] border-2 border-black text-white rounded-[20px] flex items-center justify-center gap-2 active:scale-95 disabled:opacity-30 transition-all shadow-md shrink-0"
             >
-              <Mic size={24} strokeWidth={2.5} />
-              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-                말로 하기
-              </span>
+              <Send size={28} className="rotate-[-45deg] -mt-1" />
+              <span className="text-[24px] font-bold">전송</span>
             </button>
           </div>
-
-          {/* Send Button */}
-          <button
-            onClick={handleSend}
-            disabled={isLoading || (!input.trim() && !selectedImage)}
-            className="group w-16 h-16 bg-[#2E7D32] border-2 border-black text-white rounded-full flex items-center justify-center active:scale-95 disabled:opacity-30 transition-all shadow-md shrink-0 relative"
-          >
-            <Send size={32} className="rotate-[-45deg] -mr-1 mt-1 text-white" />
-            <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-              물어보기
-            </span>
-          </button>
         </div>
       </div>
     </div>
