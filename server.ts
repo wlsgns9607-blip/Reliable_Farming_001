@@ -196,7 +196,13 @@ async function createServer() {
   // Naver Auth Routes
   app.get("/api/auth/naver/url", (req, res) => {
     const clientId = process.env.NAVER_CLIENT_ID;
-    const redirectUri = `${process.env.APP_URL}/api/auth/naver/callback`;
+    
+    // Vercel 등에서 동적으로 호스트 파악
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.headers['x-forwarded-host'] || req.headers.host;
+    const appUrl = process.env.APP_URL || `${protocol}://${host}`;
+    
+    const redirectUri = `${appUrl}/api/auth/naver/callback`;
     const state = Math.random().toString(36).substring(7);
     
     if (!clientId) {
