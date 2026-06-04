@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { 
-  ArrowLeft, Share2, Volume2, Plus, Send, Camera, Image as ImageIcon, X, Mic
+  ArrowLeft, Share2, Volume2, Plus, Send, Camera, Image as ImageIcon, X, Mic, Search
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -24,6 +24,7 @@ export default function LogDetail() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
   const [copiedAiContent, setCopiedAiContent] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const recognitionRef = useRef<any>(null);
@@ -201,12 +202,35 @@ export default function LogDetail() {
         </button>
       </div>
 
+      {/* Search Bar */}
+      <div className="shrink-0 px-4 pt-4 pb-2 z-10 bg-[#BACEE0]">
+        <div className="relative">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="어떤 내용을 찾으시나요? (검색)"
+            className="w-full bg-white border-2 border-black/20 rounded-[16px] pl-12 pr-10 h-[56px] text-lg font-bold outline-none placeholder:text-gray-400 text-gray-800 shadow-sm"
+          />
+          <Search size={24} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          {searchTerm && (
+            <button 
+              onClick={() => setSearchTerm('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-gray-300 rounded-full p-1 active:scale-95"
+            >
+              <X size={18} />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Message Area */}
       <div 
         ref={scrollRef}
         className="flex-1 overflow-y-auto px-4 py-6 space-y-6 scroll-smooth pb-36"
       >
         {/* Initial Log Content */}
+        {(!searchTerm || (log?.content || '').toLowerCase().includes(searchTerm.toLowerCase()) || (log?.title || '').toLowerCase().includes(searchTerm.toLowerCase())) && (
         <div className="flex flex-col items-center mb-10">
           <div className="bg-black/10 text-white text-base font-bold px-5 py-1.5 rounded-full mb-6">
             {log?.timestamp ? format(log.timestamp.toDate(), 'yyyy년 M월 d일 eeee', { locale: ko }) : ''}
@@ -223,9 +247,12 @@ export default function LogDetail() {
             </button>
           </motion.div>
         </div>
+        )}
 
         {/* Real-time Messages */}
-        {messages.map((msg, idx) => {
+        {messages
+          .filter(msg => !searchTerm || (msg.content || '').toLowerCase().includes(searchTerm.toLowerCase()))
+          .map((msg, idx) => {
           const isMe = msg.userId === user?.uid;
           return (
             <div key={msg.id || idx} className={`flex flex-col ${isMe ? 'items-end' : 'items-start'} space-y-1`}>
