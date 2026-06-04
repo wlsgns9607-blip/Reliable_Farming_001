@@ -252,22 +252,22 @@ export default function AiExpert() {
   return (
     <div className="flex flex-col h-full relative bg-[#DDE1E7]">
       {/* Search Bar */}
-      <div className="shrink-0 px-6 pt-4 pb-2 z-10">
+      <div className="shrink-0 px-4 pt-4 pb-2 z-10 bg-[#DDE1E7]">
         <div className="relative">
           <input
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="어떤 대화를 찾으시나요? (검색)"
-            className="w-full bg-white border-2 border-black rounded-[20px] pl-14 pr-12 h-[60px] text-[22px] font-bold outline-none placeholder:text-gray-400 text-gray-800 shadow-sm"
+            placeholder="검색어 입력..."
+            className="w-full bg-white border-2 border-black rounded-[16px] pl-12 pr-10 h-[56px] text-lg font-bold outline-none placeholder:text-gray-400 text-gray-800 shadow-sm"
           />
-          <Search size={28} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+          <Search size={24} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
           {searchTerm && (
             <button 
               onClick={() => setSearchTerm('')}
               className="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-300 rounded-full p-1 active:scale-95 border border-black"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           )}
         </div>
@@ -325,7 +325,7 @@ export default function AiExpert() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-wrap gap-4 justify-end mt-6">
+                <div className="flex flex-wrap gap-2 justify-end mt-4">
                   {msg.role === 'model' && (
                     <button 
                       onClick={() => {
@@ -344,21 +344,21 @@ export default function AiExpert() {
                         toast.success('답변 글을 복사했습니다! 이제 농사일지 채팅방으로 가서 붙여넣으세요.');
                         navigate('/logs');
                       }}
-                      className="flex items-center gap-3 py-3 px-6 rounded-full border-2 border-black font-black text-2xl active:scale-95 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-[#FF9800] hover:bg-[#FFB74D] text-white"
+                      className="flex items-center gap-2 py-3 px-5 rounded-full border-2 border-black font-black text-xl active:scale-95 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] bg-[#FF9800] hover:bg-[#FFB74D] text-white w-full justify-center"
                     >
-                      <FileText size={36} className="shrink-0" />
+                      <FileText size={24} className="shrink-0" />
                       <span>내 일지에 저장하기</span>
                     </button>
                   )}
                   <button 
                     onClick={() => speak(msg.content)}
-                    className={`flex items-center gap-3 py-3 px-6 rounded-full border-2 border-black font-black text-2xl active:scale-95 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] ${
+                    className={`flex items-center gap-2 py-3 px-5 rounded-full border-2 border-black font-black text-xl active:scale-95 transition-all shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] w-full justify-center ${
                       msg.role === 'user' 
                         ? 'bg-white text-black' 
                         : 'bg-[#2E7D32] text-white'
                     }`}
                   >
-                    <Volume2 size={36} className="shrink-0" />
+                    <Volume2 size={24} className="shrink-0" />
                     <span>소리로 듣기</span>
                   </button>
                 </div>
@@ -383,7 +383,7 @@ export default function AiExpert() {
       </div>
 
       {/* Input Area Overlay */}
-      <div className="shrink-0 p-6 pt-4 flex flex-col gap-4 bg-white border-t-2 border-black rounded-t-[40px] z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.05)]">
+      <div className="shrink-0 p-4 pt-3 flex flex-col gap-3 bg-white border-t-2 border-black rounded-t-[30px] z-50 shadow-[0_-8px_30px_rgba(0,0,0,0.05)]">
         <input 
           type="file" 
           ref={fileInputRef} 
@@ -394,63 +394,60 @@ export default function AiExpert() {
         />
 
         {selectedImage && (
-          <div className="relative w-24 h-24 border-2 border-black rounded-[16px] overflow-hidden">
+          <div className="relative w-20 h-20 border-2 border-black rounded-[16px] overflow-hidden">
             <img src={selectedImage} alt="Preview" className="w-full h-full object-cover" />
             <button 
               onClick={() => setSelectedImage(null)}
-              className="group absolute top-1 right-1 bg-black/50 text-white rounded-full p-0.5 relative"
+              className="absolute top-1 right-1 bg-black/50 text-white rounded-full p-1"
             >
-              <X size={16} />
-              <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white text-xs font-black px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-md border border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-black">
-                지우기
-              </span>
+              <X size={14} />
             </button>
           </div>
         )}
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {/* Top Row: Camera & Mic buttons (Large) */}
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <button 
               onClick={handleImageClick}
-              className={`flex-1 h-[70px] border-2 border-black rounded-[20px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-md ${
+              className={`flex-1 h-[60px] border-2 border-black rounded-[16px] flex items-center justify-center gap-2 active:scale-95 transition-all shadow-sm ${
                 selectedImage ? 'bg-green-100 border-green-600 text-green-600' : 'bg-white text-gray-800'
               }`}
             >
-              <Camera size={32} />
-              <span className="text-[22px] font-bold">{selectedImage ? '사진 변경' : '사진 첨부'}</span>
+              <Camera size={24} />
+              <span className="text-lg font-bold">{selectedImage ? '사진 변경' : '사진 첨부'}</span>
             </button>
             
             <button 
               onClick={toggleRecording}
-              className={`flex-1 h-[70px] rounded-[20px] flex items-center justify-center gap-2 border-2 border-black transition-all active:scale-95 shadow-md ${
+              className={`flex-1 h-[60px] rounded-[16px] flex items-center justify-center gap-2 border-2 border-black transition-all active:scale-95 shadow-sm ${
                 isRecording 
                   ? 'bg-red-500 border-red-600 text-white animate-pulse' 
                   : 'bg-white text-gray-800'
               }`}
             >
-              <Mic size={32} />
-              <span className="text-[22px] font-bold">{isRecording ? '듣는 중...' : '음성으로 묻기'}</span>
+              <Mic size={24} />
+              <span className="text-lg font-bold">{isRecording ? '듣는 중...' : '음성 질문'}</span>
             </button>
           </div>
 
           {/* Bottom Row: Text input & Send */}
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="여기를 눌러 질문하기..."
-              className="flex-1 bg-white border-2 border-black rounded-[20px] px-5 h-[70px] text-[24px] font-bold outline-none placeholder:text-gray-500 text-gray-800 shadow-inner"
+              placeholder="질문을 입력하세요..."
+              className="flex-1 bg-white border-2 border-black rounded-[16px] px-4 h-[60px] text-lg font-bold outline-none placeholder:text-gray-500 text-gray-800 shadow-inner"
             />
             <button
               onClick={handleSend}
               disabled={isLoading || (!input.trim() && !selectedImage)}
-              className="h-[70px] px-6 bg-[#2E7D32] border-2 border-black text-white rounded-[20px] flex items-center justify-center gap-2 active:scale-95 disabled:opacity-30 transition-all shadow-md shrink-0"
+              className="h-[60px] px-5 bg-[#2E7D32] border-2 border-black text-white rounded-[16px] flex items-center justify-center gap-1 active:scale-95 disabled:opacity-30 transition-all shadow-sm shrink-0"
             >
-              <Send size={28} className="rotate-[-45deg] -mt-1" />
-              <span className="text-[24px] font-bold">전송</span>
+              <Send size={24} className="rotate-[-45deg] -mt-1" />
+              <span className="text-xl font-bold">전송</span>
             </button>
           </div>
         </div>
