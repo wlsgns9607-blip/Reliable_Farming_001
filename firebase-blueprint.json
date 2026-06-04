@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["farmer", "family"] },
+        "familyUids": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "role"]
+    },
+    "FarmLog": {
+      "title": "Farm Log",
+      "description": "Record of farming activities",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "content": { "type": "string" },
+        "category": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "imageUrl": { "type": "string" },
+        "address": { "type": "string" }
+      },
+      "required": ["userId", "content", "timestamp"]
+    },
+    "HarvestGuide": {
+      "title": "Harvest Guide",
+      "description": "Recommended crops to harvest this month",
+      "type": "object",
+      "properties": {
+        "cropName": { "type": "string" },
+        "startMonth": { "type": "integer" },
+        "endMonth": { "type": "integer" },
+        "description": { "type": "string" },
+        "healthBenefits": { "type": "string" }
+      }
+    },
+    "Schedule": {
+      "title": "Break Schedule",
+      "description": "Travel or rest schedules to pause farming alerts",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "startDate": { "type": "string" },
+        "endDate": { "type": "string" },
+        "type": { "type": "string", "enum": ["travel", "rest"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "startDate", "endDate", "type"]
+    },
+    "Complaint": {
+      "title": "User Complaint",
+      "description": "Difficulty or complaint recorded by user",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["userId", "content", "createdAt"]
+    },
+    "Comment": {
+      "title": "Comment",
+      "description": "A comment on a complaint or log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "content", "createdAt"]
+    },
+    "AiChatMessage": {
+      "title": "AI Chat Message",
+      "description": "Message in AI expert chat conversation",
+      "type": "object",
+      "properties": {
+        "role": { "type": "string", "enum": ["user", "model"] },
+        "content": { "type": "string" },
+        "image": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["role", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and settings"
+    },
+    "/users/{userId}/ai_chat_history/{messageId}": {
+      "schema": "AiChatMessage",
+      "description": "Chat message history with AI Expert"
+    },
+    "/logs/{logId}": {
+      "schema": "FarmLog",
+      "description": "Farming activity logs"
+    },
+    "/logs/{logId}/messages/{messageId}": {
+      "schema": "Comment",
+      "description": "Messages or comments on a farm log"
+    },
+    "/harvest_guides/{guideId}": {
+      "schema": "HarvestGuide",
+      "description": "Data for monthly harvest recommendations"
+    },
+    "/schedules/{scheduleId}": {
+      "schema": "Schedule",
+      "description": "User break and travel schedules"
+    },
+    "/complaints/{complaintId}": {
+      "schema": "Complaint",
+      "description": "User recorded difficulties"
+    },
+    "/complaints/{complaintId}/comments/{commentId}": {
+      "schema": "Comment",
+      "description": "Comments on a complaint"
+    }
+  }
+}

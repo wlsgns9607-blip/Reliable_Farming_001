@@ -1,0 +1,12 @@
+{
+  "name": "우리밭 식구",
+  "description": "대한민국 농민을 위한 지능형 농업 비서 서비스 - 큰 글씨와 쉬운 기능으로 만나는 스마트 영농 파트너",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation",
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-primary: #4CAF50; /* Figma Green */
+  --color-brand-secondary: #2E7D32; /* Darker Green for AI button */
+  --color-brand-accent: #FF9800; /* SOS Orange */
+  --color-brand-bg: #C8E6C9; /* Figma Mint Background from image */
+  --color-weather-blue: #4FC3F7;
+  --color-dark-navy: #1A2E44;
+  --color-ai-cream: #F9F7E8;
+}
+
+@layer base {
+  html {
+    font-size: 16px; /* Slightly smaller base for mobile */
+    background-color: #f0f4f0;
+  }
+  
+  body {
+    @apply font-sans m-0 p-0 overflow-x-hidden text-gray-900;
+  }
+
+  h1, h2, h3 {
+    @apply font-black tracking-tight;
+  }
+}
+
+/* Mobile App Frame Mode */
+#root {
+  @apply max-w-[430px] mx-auto min-h-screen bg-brand-bg shadow-[0_0_80px_rgba(0,0,0,0.1)] overflow-x-hidden overflow-y-auto relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Adjust scrollbar */
+#root::-webkit-scrollbar {
+  width: 0px;
+}
+
+/* Figma UI Elements - App Style Refresh */
+.card-figma {
+  @apply bg-white p-6 rounded-[32px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-all;
+}
+
+.btn-figma-primary {
+  @apply bg-brand-primary text-white py-5 rounded-[24px] border-4 border-black text-2xl font-black active:scale-95 transition-all flex items-center justify-center gap-3 w-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+}
+
+.btn-figma-complaint {
+  @apply bg-[#7D5A50] text-white py-4 rounded-[20px] border-4 border-black text-2xl font-black active:scale-95 transition-all flex items-center justify-center gap-2 w-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+}
+
+.btn-figma-cam {
+  @apply bg-[#4E6852] text-white py-4 rounded-[20px] border-4 border-black text-2xl font-black active:scale-95 transition-all flex items-center justify-center gap-2 w-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)];
+}
+
+.btn-figma-ai {
+  @apply bg-brand-secondary text-white py-6 rounded-[28px] border-4 border-black text-2xl font-black active:scale-95 transition-all flex items-center justify-center gap-4 w-full shadow-[6px_6px_0px_0px_rgba(0,0,0,1)];
+}
+
+.btn-figma-white {
+  @apply bg-white text-gray-800 py-4 rounded-[24px] border-4 border-black text-2xl font-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:scale-95 transition-all w-full flex items-center justify-center gap-4;
+}
+
+.weather-header {
+  @apply bg-gradient-to-br from-[#66BB6A] to-[#42A5F5] text-white p-8 rounded-[36px] border-4 border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden;
+}
+
+.bottom-nav-figma {
+  @apply fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white px-6 py-4 h-44 flex justify-around items-center z-50 border-t-8 border-black shadow-[0_-10px_30px_rgba(0,0,0,0.1)];
+}
+
+.nav-item-figma {
+  @apply flex flex-col items-center gap-2 text-black active:scale-90 transition-all font-black text-[18px];
+}
+
+.nav-icon-box {
+  @apply w-24 h-24 rounded-[32px] border-4 border-black flex items-center justify-center bg-white shadow-sm;
+}
+
+/* Safe Area for Bottom Nav */
+.content-area {
+  @apply pb-32;
+}
