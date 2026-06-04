@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { ArrowLeft, Send, Volume2, X, Camera, Mic, Home, CalendarDays, FileText } from 'lucide-react';
+import { ArrowLeft, Send, Volume2, X, Camera, Mic, Home, CalendarDays, FileText, Search } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../services/firebase';
@@ -33,6 +33,7 @@ export default function AiExpert() {
   const [input, setInput] = useState('');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -250,13 +251,37 @@ export default function AiExpert() {
 
   return (
     <div className="flex flex-col h-full relative bg-[#DDE1E7]">
+      {/* Search Bar */}
+      <div className="shrink-0 px-6 pt-4 pb-2 z-10">
+        <div className="relative">
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="어떤 대화를 찾으시나요? (검색)"
+            className="w-full bg-white border-2 border-black rounded-[20px] pl-14 pr-12 h-[60px] text-[22px] font-bold outline-none placeholder:text-gray-400 text-gray-800 shadow-sm"
+          />
+          <Search size={28} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+          {searchTerm && (
+            <button 
+              onClick={() => setSearchTerm('')}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-gray-300 rounded-full p-1 active:scale-95 border border-black"
+            >
+              <X size={20} />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Chat Area */}
       <div 
         ref={scrollRef}
-        className="flex-1 overflow-y-auto px-6 space-y-8 pb-10 scroll-smooth pt-4"
+        className="flex-1 overflow-y-auto px-6 space-y-8 pb-10 scroll-smooth pt-2"
       >
         <AnimatePresence>
-          {messages.map((msg, idx) => (
+          {messages
+            .filter(msg => msg.content.toLowerCase().includes(searchTerm.toLowerCase()))
+            .map((msg, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, scale: 0.95 }}
