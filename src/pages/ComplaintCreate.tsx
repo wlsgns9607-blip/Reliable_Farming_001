@@ -19,6 +19,7 @@ export default function ComplaintCreate() {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [content, setContent] = useState('');
+  const [region, setRegion] = useState('');
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -67,6 +68,10 @@ export default function ComplaintCreate() {
   };
 
   const handleApply = async () => {
+    if (!region) {
+      toast.error('지역을 먼저 선택해주세요.');
+      return;
+    }
     if (!content.trim() && !image) {
       toast.error('내용이나 사진을 입력해주세요.');
       return;
@@ -76,6 +81,7 @@ export default function ComplaintCreate() {
     try {
       await saveComplaint({
         content: content,
+        region: region,
         imageUrl: image,
       }, user?.uid, user?.displayName || "생활 농부");
 
@@ -93,10 +99,32 @@ export default function ComplaintCreate() {
     <div className="bg-[#D1E8D1] min-h-screen font-sans flex flex-col max-w-[430px] mx-auto overflow-x-hidden">
       <div className="p-6 space-y-8 flex-1">
         {/* Detail Card */}
-        <div className="bg-white border-2 border-black rounded-[40px] p-8 space-y-8 shadow-lg mt-10">
-          <h3 className="text-[34px] font-bold text-gray-800 text-center">상세 내용을 알려주세요</h3>
+        <div className="bg-white border-2 border-black rounded-[40px] p-8 space-y-6 shadow-lg mt-10">
+          <h3 className="text-[34px] font-bold text-gray-800 text-center mb-2">상세 내용을 알려주세요</h3>
           
-          <div className="bg-white border-2 border-green-800 rounded-[28px] p-6 h-[260px] flex flex-col">
+          <div className="bg-white border-2 border-green-800 rounded-[24px] px-6 py-4 flex flex-col relative">
+             <select 
+               value={region}
+               onChange={(e) => setRegion(e.target.value)}
+               className="w-full text-[24px] font-bold text-gray-800 bg-transparent outline-none focus:outline-none appearance-none"
+             >
+               <option value="" disabled>📍 지역을 선택해주세요 (필수)</option>
+               <option value="경기도">경기도</option>
+               <option value="강원도">강원도</option>
+               <option value="충청북도">충청북도</option>
+               <option value="충청남도">충청남도</option>
+               <option value="전라북도">전라북도</option>
+               <option value="전라남도">전라남도</option>
+               <option value="경상북도">경상북도</option>
+               <option value="경상남도">경상남도</option>
+               <option value="제주특별자치도">제주특별자치도</option>
+             </select>
+             <div className="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+             </div>
+          </div>
+
+          <div className="bg-white border-2 border-green-800 rounded-[28px] p-6 h-[220px] flex flex-col">
              <textarea 
                value={content}
                onChange={(e) => setContent(e.target.value)}
