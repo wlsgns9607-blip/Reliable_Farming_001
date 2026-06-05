@@ -66,7 +66,12 @@ export default function Complaint() {
                       {item.content}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {item.region && (
+                      <div className="text-sm font-bold text-blue-600 bg-blue-50 border-2 border-blue-100 px-2 rounded-md">
+                        📍 {item.region}
+                      </div>
+                    )}
                     <div className="text-sm font-bold text-gray-400 bg-gray-50 px-2 rounded-md">
                       작성: {item.userName || '식구'}
                     </div>

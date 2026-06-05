@@ -89,20 +89,27 @@ export default function ComplaintDetail() {
         {/* Main Complaint Card */}
         <div className="bg-white border-2 border-black rounded-[40px] p-8 shadow-sm space-y-6">
           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 bg-brand-bg border-2 border-black rounded-full flex items-center justify-center text-xl font-bold">
-                {complaint.userId === user?.uid ? '나' : '식'}
-             </div>
-             <div>
-                <p className="text-xl font-bold text-gray-800">
-                  {complaint.userName || (complaint.userId === user?.uid ? '내가 쓴 글' : '동네 농부')}
-                </p>
-                <div className="flex items-center gap-1 text-gray-400 text-sm">
+             <div className="w-10 h-10 bg-[#7CD098] border-2 border-black rounded-full flex items-center justify-center text-xl font-bold">
+                 {complaint.userId === user?.uid ? '나' : '식'}
+              </div>
+              <div className="flex-1">
+                 <div className="flex items-center gap-2 mb-1">
+                   {complaint.region && (
+                     <span className="text-[12px] font-bold text-blue-700 bg-blue-50 border-2 border-blue-200 px-2 py-0.5 rounded-lg shrink-0">
+                       📍 {complaint.region}
+                     </span>
+                   )}
+                   <p className="text-xl font-bold text-gray-800 line-clamp-1">
+                     {complaint.userName || (complaint.userId === user?.uid ? '내가 쓴 글' : '동네 농부')}
+                   </p>
+                 </div>
+                 <div className="flex items-center gap-1 text-gray-400 text-sm">
                    <Clock size={14} />
                    <span>
                       {complaint.createdAt ? format(complaint.createdAt.toDate(), 'PPP p', { locale: ko }) : ''}
                    </span>
                 </div>
-             </div>
+              </div>
           </div>
 
           <div className="text-[28px] font-black text-gray-800 leading-tight whitespace-pre-line">
