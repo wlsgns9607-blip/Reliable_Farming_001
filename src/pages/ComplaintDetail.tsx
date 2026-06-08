@@ -85,7 +85,17 @@ export default function ComplaintDetail() {
 
   return (
     <div className="bg-[#D1E8D1] min-h-screen font-sans flex flex-col max-w-[430px] mx-auto overflow-hidden relative shadow-2xl">
-      <div className="flex-1 overflow-y-auto p-6 space-y-8 pb-32">
+      {/* Header with Back Button */}
+      <div className="flex items-center p-6 pb-0">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="w-12 h-12 bg-white border-2 border-black rounded-full flex items-center justify-center active:scale-95 transition-all shadow-sm"
+        >
+          <ArrowLeft size={24} className="text-gray-800" />
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-6 pt-4 space-y-8 pb-32">
         {/* Main Complaint Card */}
         <div className="bg-white border-2 border-black rounded-[40px] p-8 shadow-sm space-y-6">
           <div className="flex items-center gap-3">
