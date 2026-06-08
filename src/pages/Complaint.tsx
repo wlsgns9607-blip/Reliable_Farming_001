@@ -7,11 +7,12 @@ import {
   Home,
   Bot,
   CalendarDays,
-  FileText
+  FileText,
+  Trash2
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { subscribeToComplaints } from '../services/db';
+import { subscribeToComplaints, deleteComplaint } from '../services/db';
 
 export default function Complaint() {
   const { user, profile } = useAuth();
@@ -28,6 +29,13 @@ export default function Complaint() {
 
     return () => unsubscribe();
   }, []);
+
+  const handleDelete = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation();
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      await deleteComplaint(id);
+    }
+  };
 
   return (
     <div className="bg-[#D1E8D1] min-h-screen font-sans flex flex-col max-w-[430px] mx-auto overflow-x-hidden relative">
@@ -83,8 +91,7 @@ export default function Complaint() {
                 key={item.id}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                onClick={() => navigate(`/complaint/${item.id}`)}
-                className="w-full p-4 bg-white border-2 border-green-800 rounded-[28px] flex items-center gap-6 shadow-[0_4px_0_0_rgba(22,66,44,0.05)] active:scale-[0.98] transition-all relative overflow-hidden cursor-pointer"
+                className="w-full p-4 bg-white border-2 border-green-800 rounded-[28px] flex items-center gap-6 shadow-[0_4px_0_0_rgba(22,66,44,0.05)] transition-all relative overflow-hidden"
               >
                 <div className="w-24 h-24 bg-white border-2 border-green-800 rounded-[20px] shrink-0 flex items-center justify-center overflow-hidden shadow-sm">
                    {item.imageUrl ? (
@@ -96,9 +103,11 @@ export default function Complaint() {
                    )}
                 </div>
                 <div className="flex-1 flex flex-col justify-center min-w-0 pr-2">
-                  <div className="text-[12px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-lg w-fit mb-1 shrink-0">
-                    📍 {item.region || '지역 미설정'}
-                  </div>
+                  {item.region && (
+                    <div className="text-[12px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-lg w-fit mb-1 shrink-0">
+                      📍 {item.region}
+                    </div>
+                  )}
                   <span className="text-[20px] font-black text-gray-800 text-left leading-tight line-clamp-1 truncate mb-1">
                     {item.content}
                   </span>
@@ -111,7 +120,7 @@ export default function Complaint() {
                     </span>
                   </div>
                 </div>
-                <div className="flex flex-col items-center justify-center shrink-0">
+                <div className="flex flex-col items-center justify-center shrink-0 gap-2">
                   <button 
                     onClick={(e) => {
                       e.stopPropagation();
@@ -120,6 +129,13 @@ export default function Complaint() {
                     className="bg-[#2E7D32] text-white px-3 py-2 rounded-xl text-sm font-black shadow-[2px_2px_0_0_#163316] active:translate-y-0.5 active:shadow-none transition-all whitespace-nowrap"
                   >
                     답변하기
+                  </button>
+                  <button
+                    onClick={(e) => handleDelete(e, item.id)}
+                    className="flex items-center gap-1 text-[12px] font-bold text-gray-400 hover:text-red-500 active:text-red-600 transition-colors"
+                  >
+                    <Trash2 size={14} />
+                    삭제
                   </button>
                 </div>
               </motion.div>
