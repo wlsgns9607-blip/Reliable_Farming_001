@@ -355,15 +355,15 @@ export default function LogDetail() {
           />
           <button 
             onClick={() => fileInputRef.current?.click()}
-            className="group w-14 h-14 bg-white border-2 border-black rounded-xl flex items-center justify-center active:scale-95 shadow-sm shrink-0 relative"
+            className="group w-16 h-16 bg-white border-2 border-black rounded-[20px] flex items-center justify-center active:scale-95 shadow-sm shrink-0 relative"
           >
-            <Camera size={28} />
+            <Camera size={32} />
             <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
               사진 찍기
             </span>
           </button>
           
-          <div className="flex-1 min-w-0 bg-white rounded-xl py-2 px-3 shadow-sm flex items-end gap-2 border-2 border-black">
+          <div className="flex-1 min-w-0 bg-white rounded-[20px] py-3 px-4 shadow-sm flex items-end gap-3 border-2 border-black">
             <textarea 
               rows={1}
               placeholder="식구에게 하고 싶은 말..."
@@ -373,26 +373,26 @@ export default function LogDetail() {
                 e.target.style.height = 'auto';
                 e.target.style.height = e.target.scrollHeight + 'px';
               }}
-              className="flex-1 min-w-0 bg-transparent py-1.5 text-xl font-extrabold focus:outline-none resize-none max-h-32 text-gray-800 placeholder:text-gray-300"
+              className="flex-1 min-w-0 bg-transparent py-2 text-2xl font-extrabold focus:outline-none resize-none max-h-32 text-gray-800 placeholder:text-gray-300"
             />
             {/* Mic inside the Chat Input Bar */}
             <button 
               onClick={toggleRecording}
-              className={`w-12 h-12 rounded-lg flex items-center justify-center border transition-all shrink-0 active:scale-90 ${
+              className={`w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${
                 isRecording 
                   ? 'bg-red-500 border-red-600 text-white animate-pulse shadow-md' 
                   : 'bg-white border-gray-300 text-gray-800 shadow-sm'
               }`}
               title="음성으로 쓰기"
             >
-              <Mic size={22} strokeWidth={2.5} />
+              <Mic size={28} strokeWidth={2.5} />
             </button>
             <button 
               onClick={handleSend}
               disabled={(!newMessage.trim() && !selectedImage) || isSending}
-              className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border border-black/10' : 'text-gray-300 pointer-events-none'}`}
+              className={`w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border-black/10 shadow-sm' : 'border-gray-200 text-gray-300 pointer-events-none'}`}
             >
-              <Send size={22} fill="currentColor" />
+              <Send size={26} fill="currentColor" />
             </button>
           </div>
         </div>
