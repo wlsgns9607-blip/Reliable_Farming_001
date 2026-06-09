@@ -378,21 +378,26 @@ export default function LogDetail() {
             {/* Mic inside the Chat Input Bar */}
             <button 
               onClick={toggleRecording}
-              className={`w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${
+              className={`group relative w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${
                 isRecording 
                   ? 'bg-red-500 border-red-600 text-white animate-pulse shadow-md' 
                   : 'bg-white border-gray-300 text-gray-800 shadow-sm'
               }`}
-              title="음성으로 쓰기"
             >
               <Mic size={28} strokeWidth={2.5} />
+              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
+                음성 쓰기
+              </span>
             </button>
             <button 
               onClick={handleSend}
               disabled={(!newMessage.trim() && !selectedImage) || isSending}
-              className={`w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border-black/10 shadow-sm' : 'border-gray-200 text-gray-300 pointer-events-none'}`}
+              className={`group relative w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border-black/10 shadow-sm' : 'border-gray-200 text-gray-300 pointer-events-none'}`}
             >
               <Send size={26} fill="currentColor" />
+              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
+                보내기
+              </span>
             </button>
           </div>
         </div>
