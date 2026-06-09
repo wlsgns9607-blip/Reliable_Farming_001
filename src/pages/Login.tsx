@@ -254,7 +254,7 @@ export default function Login() {
           disabled={loading}
         >
           <UserRound size={36} />
-          <span>앱체험하기</span>
+          <span>익명로그인</span>
         </motion.button>
       </div>
 
@@ -410,7 +410,7 @@ export default function Login() {
 
                  {/* Primary Action Button */}
                  <button 
-                   onClick={() => toast.error("아이디/비밀번호 로그인은 준비 중입니다. 구글 로그인이나 앱체험하기를 이용해 주세요!")}
+                   onClick={() => toast.error("아이디/비밀번호 로그인은 준비 중입니다. 구글 로그인이나 익명로그인을 이용해 주세요!")}
                    className="w-full bg-[#4CAF50] text-white py-3 rounded-full border-4 border-black text-lg font-black shadow-[3px_3px_0_0_#000] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
                  >
                     로그인
@@ -588,13 +588,13 @@ export default function Login() {
                 >
                   <ArrowLeft size={30} strokeWidth={3} />
                 </button>
-                <h2 className="text-xl font-black text-gray-800 absolute left-1/2 -translate-x-1/2">앱체험하기</h2>
+                <h2 className="text-xl font-black text-gray-800 absolute left-1/2 -translate-x-1/2">익명로그인</h2>
               </div>
               
               <div className="p-4 space-y-3">
                  {/* Green Title Banner */}
                  <div className="bg-[#2E7D32] text-white py-3 rounded-[24px] shadow-md flex items-center justify-center">
-                    <h3 className="text-xl font-black tracking-tight">앱체험하기</h3>
+                    <h3 className="text-xl font-black tracking-tight">익명로그인</h3>
                  </div>
   
                  {/* Form Fields - More compact */}
@@ -663,7 +663,7 @@ export default function Login() {
                       }}
                       className="bg-[#2E7D32] text-white py-2.5 px-6 rounded-full flex items-center gap-2 text-xl font-black shadow-xl active:translate-y-1 active:shadow-none transition-all"
                     >
-                       <span>앱체험하기</span>
+                       <span>익명로그인</span>
                        <ChevronRight size={28} strokeWidth={4} />
                     </motion.button>
                  </div>
