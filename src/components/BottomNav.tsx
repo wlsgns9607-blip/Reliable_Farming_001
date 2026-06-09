@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Home, Sparkles, FileText, CalendarDays } from 'lucide-react';
+import { Home, MessageCircle, BookOpen, CalendarDays } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function BottomNav() {
@@ -17,8 +17,8 @@ export default function BottomNav() {
     },
     { 
       id: 'expert', 
-      label: 'AI 상담', 
-      icon: <Sparkles size={32} />, 
+      label: '농사상담', 
+      icon: <MessageCircle size={32} />, 
       path: '/ai-expert',
       active: location.pathname === '/ai-expert'
     },
@@ -31,8 +31,8 @@ export default function BottomNav() {
     },
     { 
       id: 'logs', 
-      label: '농사일지', 
-      icon: <FileText size={32} />, 
+      label: '지난 일지', 
+      icon: <BookOpen size={32} />, 
       path: '/logs',
       active: location.pathname.startsWith('/logs')
     },
@@ -65,7 +65,7 @@ export default function BottomNav() {
             {item.icon}
           </motion.div>
           <motion.span 
-            className={`text-[12px] font-bold transition-colors ${item.active ? 'text-brand-primary' : 'text-gray-600 group-hover:text-black'}`}
+            className={`text-[15px] font-extrabold mt-1 transition-colors ${item.active ? 'text-brand-primary' : 'text-gray-700 group-hover:text-black'}`}
           >
             {item.label}
           </motion.span>
