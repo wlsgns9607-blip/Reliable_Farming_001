@@ -46,6 +46,20 @@ export default function BottomNav() {
 
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-white border-t-2 border-black rounded-t-[32px] px-4 pt-4 pb-8 flex justify-around items-end z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]">
+      
+      {/* 어르신을 위한 어포던스 툴팁 (홈 화면에서만 표시) */}
+      {location.pathname === '/' && (
+        <motion.div 
+          initial={{ y: 10, opacity: 0 }}
+          animate={{ y: [0, -5, 0], opacity: 1 }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="absolute -top-[60px] left-1/2 -translate-x-1/2 w-fit whitespace-nowrap bg-brand-primary text-white text-center py-2 px-5 rounded-full font-bold text-[15px] border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+        >
+          👇 아래 그림을 꾹 눌러서 사용해보셔유!
+          {/* 말풍선 꼬리 */}
+          <div className="absolute -bottom-[6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-brand-primary border-b-2 border-r-2 border-black rotate-45"></div>
+        </motion.div>
+      )}
       {navItems.map((item) => (
         <motion.button
           key={item.id}
