@@ -355,12 +355,10 @@ export default function LogDetail() {
           />
           <button 
             onClick={() => fileInputRef.current?.click()}
-            className="group w-16 h-16 bg-white border-2 border-black rounded-[20px] flex items-center justify-center active:scale-95 shadow-sm shrink-0 relative"
+            className="w-[72px] h-[72px] bg-white border-2 border-black rounded-[20px] flex flex-col items-center justify-center gap-1 active:scale-95 shadow-sm shrink-0"
           >
-            <Camera size={32} />
-            <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-              사진 찍기
-            </span>
+            <Camera size={28} />
+            <span className="text-[14px] font-black text-gray-800">사진추가</span>
           </button>
           
           <div className="flex-1 min-w-0 bg-white rounded-[20px] py-3 px-4 shadow-sm flex items-end gap-3 border-2 border-black">
@@ -378,26 +376,22 @@ export default function LogDetail() {
             {/* Mic inside the Chat Input Bar */}
             <button 
               onClick={toggleRecording}
-              className={`group relative w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${
+              className={`w-[60px] h-[64px] rounded-xl flex flex-col items-center justify-center gap-1 border-2 transition-all shrink-0 active:scale-90 ${
                 isRecording 
                   ? 'bg-red-500 border-red-600 text-white animate-pulse shadow-md' 
                   : 'bg-white border-gray-300 text-gray-800 shadow-sm'
               }`}
             >
-              <Mic size={28} strokeWidth={2.5} />
-              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-                음성 쓰기
-              </span>
+              <Mic size={24} strokeWidth={2.5} />
+              <span className={`text-[12px] font-black ${isRecording ? 'text-white' : 'text-gray-800'}`}>음성입력</span>
             </button>
             <button 
               onClick={handleSend}
               disabled={(!newMessage.trim() && !selectedImage) || isSending}
-              className={`group relative w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border-black/10 shadow-sm' : 'border-gray-200 text-gray-300 pointer-events-none'}`}
+              className={`w-[60px] h-[64px] rounded-xl flex flex-col items-center justify-center gap-1 border-2 transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border-black/10 shadow-sm' : 'border-gray-200 text-gray-400 pointer-events-none'}`}
             >
-              <Send size={26} fill="currentColor" />
-              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-                보내기
-              </span>
+              <Send size={24} fill="currentColor" />
+              <span className="text-[12px] font-black">전송하기</span>
             </button>
           </div>
         </div>
