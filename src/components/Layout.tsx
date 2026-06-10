@@ -132,23 +132,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {location.pathname === '/logs' && (
               <button 
                 onClick={() => navigate('/logs/create')}
-                className="group w-12 h-12 rounded-full bg-[#2E7D32] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black relative"
+                className="group h-12 px-5 rounded-[24px] bg-[#2E7D32] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black"
               >
-                <Plus size={28} strokeWidth={3} />
-                <span className="absolute -bottom-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-b-black">
-                  방 만들기
-                </span>
+                <span className="text-[18px]">새 방 만들기</span>
               </button>
             )}
             {location.pathname === '/complaint' && (
               <button 
                 onClick={() => navigate('/complaint/create')}
-                className="group w-12 h-12 rounded-full bg-[#66BB6A] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black relative"
+                className="group h-12 px-5 rounded-[24px] bg-[#66BB6A] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black"
               >
-                <Plus size={28} strokeWidth={3} />
-                <span className="absolute -bottom-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:bottom-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-b-black">
-                  글 쓰기
-                </span>
+                <span className="text-[18px]">새 글 쓰기</span>
               </button>
             )}
           </div>
