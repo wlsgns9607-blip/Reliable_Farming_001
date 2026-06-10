@@ -197,8 +197,8 @@ export default function LogDetail() {
             <p className="text-sm font-bold text-gray-600">#{log?.category} 참여 중</p>
           </div>
         </div>
-        <button onClick={handleShare} className="p-3 bg-white/30 rounded-2xl border-2 border-black/10 active:scale-90">
-          <Share2 size={26} />
+        <button onClick={handleShare} className="py-2 px-4 bg-white/30 rounded-[20px] border-2 border-black/10 active:scale-90 font-black text-gray-800 text-[17px]">
+          공유
         </button>
       </div>
 
@@ -355,12 +355,9 @@ export default function LogDetail() {
           />
           <button 
             onClick={() => fileInputRef.current?.click()}
-            className="group w-16 h-16 bg-white border-2 border-black rounded-[20px] flex items-center justify-center active:scale-95 shadow-sm shrink-0 relative"
+            className="group w-[60px] h-14 bg-white border-2 border-black rounded-[20px] flex items-center justify-center active:scale-95 shadow-sm shrink-0 relative"
           >
-            <Camera size={32} />
-            <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-              사진 찍기
-            </span>
+            <span className="text-[17px] font-black text-gray-800">사진</span>
           </button>
           
           <div className="flex-1 min-w-0 bg-white rounded-[20px] py-3 px-4 shadow-sm flex items-end gap-3 border-2 border-black">
@@ -384,20 +381,14 @@ export default function LogDetail() {
                   : 'bg-white border-gray-300 text-gray-800 shadow-sm'
               }`}
             >
-              <Mic size={28} strokeWidth={2.5} />
-              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-                음성 쓰기
-              </span>
+              <span className="text-[16px] font-black">음성</span>
             </button>
             <button 
               onClick={handleSend}
               disabled={(!newMessage.trim() && !selectedImage) || isSending}
               className={`group relative w-14 h-14 rounded-xl flex items-center justify-center border-2 transition-all shrink-0 active:scale-90 ${newMessage.trim() || selectedImage ? 'bg-[#FEE500] text-black border-black/10 shadow-sm' : 'border-gray-200 text-gray-300 pointer-events-none'}`}
             >
-              <Send size={26} fill="currentColor" />
-              <span className="absolute -top-14 left-1/2 -translate-x-1/2 bg-black text-white text-base font-black px-3 py-2 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl border-2 border-white z-50 after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-8 after:border-transparent after:border-t-black">
-                보내기
-              </span>
+              <span className="text-[16px] font-black">전송</span>
             </button>
           </div>
         </div>
