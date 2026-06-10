@@ -132,17 +132,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {location.pathname === '/logs' && (
               <button 
                 onClick={() => navigate('/logs/create')}
-                className="group h-12 px-5 rounded-[24px] bg-[#2E7D32] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black"
+                className="group h-12 px-4 rounded-[24px] bg-[#2E7D32] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black whitespace-nowrap"
               >
-                <span className="text-[18px]">새 방 만들기</span>
+                <span className="text-[17px]">방 만들기</span>
               </button>
             )}
             {location.pathname === '/complaint' && (
               <button 
                 onClick={() => navigate('/complaint/create')}
-                className="group h-12 px-5 rounded-[24px] bg-[#66BB6A] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black"
+                className="group h-12 px-4 rounded-[24px] bg-[#66BB6A] flex items-center justify-center border-2 border-black shadow-sm text-white active:scale-90 transition-all font-black whitespace-nowrap"
               >
-                <span className="text-[18px]">새 글 쓰기</span>
+                <span className="text-[17px]">글쓰기</span>
               </button>
             )}
           </div>
