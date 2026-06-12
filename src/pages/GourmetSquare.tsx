@@ -1,5 +1,4 @@
 import React from 'react';
-import { ShoppingBag } from 'lucide-react';
 import { motion } from 'motion/react';
 
 const products = [
@@ -119,15 +118,6 @@ export default function GourmetSquare() {
           </div>
         ))}
       </div>
-
-      {/* Floating Action Button */}
-      <motion.button 
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="absolute bottom-6 right-5 w-14 h-14 bg-[#1E8449] rounded-full flex items-center justify-center text-white shadow-[0_4px_12px_rgba(30,132,73,0.4)] z-50 border-2 border-white"
-      >
-        <ShoppingBag size={24} strokeWidth={2.5} />
-      </motion.button>
     </div>
   );
 }
