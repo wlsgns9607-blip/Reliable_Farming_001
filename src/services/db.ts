@@ -215,7 +215,7 @@ export function subscribeToComplaints(callback: (complaints: any[]) => void) {
   });
 }
 
-export async function saveComplaint(data: { content: string, imageUrl?: string | null }, userId?: string, userName?: string) {
+export async function saveComplaint(data: { content: string, region?: string, imageUrl?: string | null }, userId?: string, userName?: string) {
   const path = 'complaints';
   try {
     const user = auth.currentUser;
