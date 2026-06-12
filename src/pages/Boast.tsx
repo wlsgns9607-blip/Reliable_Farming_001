@@ -8,6 +8,15 @@ export default function Boast() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
+  const playInstruction = () => {
+    window.speechSynthesis.cancel();
+    const text = "기획자님, 든든자랑 페이지에 오신 것을 환영합니다! 이곳에서는 오늘 땀 흘려 수확한 작물을 자랑하고, 다른 농부님들과 소통할 수 있습니다. 화면 중앙의 진한 초록색 버튼을 눌러 사진과 함께 자랑글을 올려보세요. 이웃 농부님들의 게시글에 칭찬하기 버튼을 눌러 따뜻한 응원도 남길 수 있습니다.";
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'ko-KR';
+    utterance.rate = 0.95;
+    window.speechSynthesis.speak(utterance);
+  };
+
   const feed = [
     {
       id: 1,
@@ -44,7 +53,7 @@ export default function Boast() {
           </div>
           <h1 className="text-xl font-black text-[#1E8449]">든든자랑</h1>
         </div>
-        <button className="text-[#1E8449] p-2">
+        <button onClick={playInstruction} className="text-[#1E8449] p-2 active:scale-90 transition-transform">
           <Volume2 size={24} strokeWidth={2.5} />
         </button>
       </header>
