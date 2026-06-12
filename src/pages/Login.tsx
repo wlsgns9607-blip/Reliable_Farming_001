@@ -27,7 +27,9 @@ import {
   Phone,
   UserCircle,
   AlertTriangle,
-  Car
+  Car,
+  Award,
+  Store
 } from 'lucide-react';
 import { getLocalWeather, parseWeatherCode } from '../services/weather';
 import { toast } from 'react-hot-toast';
@@ -312,6 +314,16 @@ export default function Login() {
         <MenuCard 
           icon={<MessageCircleQuestion size={40} className="text-black" />} 
           label={<>농심(農心)<br />해결소</>} 
+          onClick={() => setShowModal(true)}
+        />
+        <MenuCard 
+          icon={<Award size={40} className="text-black" />} 
+          label={<>든든 자랑</>} 
+          onClick={() => setShowModal(true)}
+        />
+        <MenuCard 
+          icon={<Store size={40} className="text-black" />} 
+          label={<>든든 미식광장</>} 
           onClick={() => setShowModal(true)}
         />
       </div>
