@@ -58,6 +58,7 @@ export default function Boast() {
         <motion.button 
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
+          onClick={() => navigate('/boast/create')}
           className="w-full bg-[#2E7D32] text-white rounded-[24px] p-5 shadow-lg flex items-center justify-center gap-3 border-2 border-white/20"
         >
           <span className="text-2xl">✍️</span>

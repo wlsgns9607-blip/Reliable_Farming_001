@@ -19,7 +19,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const hideHeader = [
     '/login', 
     '/onboarding',
-    '/boast'
+    '/boast',
+    '/boast/create'
   ].includes(location.pathname) || 
   location.pathname.startsWith('/logs/') || 
   location.pathname.startsWith('/complaint/');
