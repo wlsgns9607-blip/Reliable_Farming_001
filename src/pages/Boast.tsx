@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Heart, MessageSquare, Share2, Bell } from 'lucide-react';
+import { Heart, MessageSquare, Share2, Volume2, Sprout } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -39,17 +39,13 @@ export default function Boast() {
       {/* Header */}
       <header className="p-4 flex items-center justify-between sticky top-0 bg-[#D1E8D1]/90 backdrop-blur-md z-40">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden border border-black/10">
-            {user?.photoURL ? (
-              <img src={user.photoURL} alt="profile" className="w-full h-full object-cover" />
-            ) : (
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Farmer" alt="avatar" className="w-full h-full object-cover" />
-            )}
+          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-[#1E8449] border border-black/10">
+            <Sprout size={24} strokeWidth={2.5} />
           </div>
           <h1 className="text-xl font-black text-[#1E8449]">든든자랑</h1>
         </div>
         <button className="text-[#1E8449] p-2">
-          <Bell size={24} strokeWidth={2.5} />
+          <Volume2 size={24} strokeWidth={2.5} />
         </button>
       </header>
 
