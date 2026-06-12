@@ -97,7 +97,7 @@ export default function GourmetSquare() {
 
       <div className="flex justify-between items-end mb-4 px-2">
         <div>
-          <h3 className="text-[17px] font-black text-[#1E8449]">제철의 수확</h3>
+          <h3 className="text-[17px] font-black text-[#1E8449]">7월 제철의 수확</h3>
           <p className="text-[12px] font-bold text-[#1E8449]/80 mt-1">🌿 당일 농장 직배송 (무료)</p>
         </div>
         <button onClick={() => navigate('/gourmet/list')} className="text-[13px] font-black text-[#1E8449]">더보기 +</button>
