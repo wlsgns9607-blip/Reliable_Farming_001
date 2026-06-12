@@ -23,7 +23,9 @@ import {
   Sparkles,
   CalendarDays,
   BookText,
-  AlertTriangle
+  AlertTriangle,
+  Award,
+  Store
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { getHarvestRecommendation } from '../services/gemini';
@@ -386,6 +388,18 @@ export default function Dashboard() {
             label={<>농심(農心)<br />해결소</>} 
             className="h-48"
             onClick={() => navigate('/complaint')}
+          />
+          <MenuCard 
+            icon={<Award size={48} className="text-black" />} 
+            label={<>든든 자랑</>} 
+            className="h-48"
+            onClick={() => {}}
+          />
+          <MenuCard 
+            icon={<Store size={48} className="text-black" />} 
+            label={<>든든 미식광장</>} 
+            className="h-48"
+            onClick={() => {}}
           />
         </div>
 
