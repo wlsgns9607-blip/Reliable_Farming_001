@@ -393,7 +393,7 @@ export default function Dashboard() {
             icon={<Award size={48} className="text-black" />} 
             label={<>든든 자랑</>} 
             className="h-48"
-            onClick={() => {}}
+            onClick={() => navigate('/boast')}
           />
           <MenuCard 
             icon={<Store size={48} className="text-black" />} 

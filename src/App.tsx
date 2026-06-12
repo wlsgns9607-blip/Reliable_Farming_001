@@ -14,6 +14,7 @@ import LogComment from './pages/LogComment';
 import LogWork from './pages/LogWork';
 import Login from './pages/Login';
 import GourmetSquare from './pages/GourmetSquare';
+import Boast from './pages/Boast';
 
 import Complaint from './pages/Complaint';
 import ComplaintCreate from './pages/ComplaintCreate';
@@ -56,6 +57,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/gourmet" element={<GourmetSquare />} />
+        <Route path="/boast" element={<Boast />} />
         <Route path="/ai-expert" element={<AiExpert />} />
         <Route path="/logs" element={<LogList />} />
         <Route path="/logs/:id" element={<LogDetail />} />

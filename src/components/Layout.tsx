@@ -13,12 +13,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const isHome = location.pathname === '/';
   // List of paths that should have the bottom nav
-  const showBottomNav = ['/ai-expert', '/logs', '/schedule', '/complaint', '/gourmet'].includes(location.pathname);
+  const showBottomNav = ['/ai-expert', '/logs', '/schedule', '/complaint', '/gourmet', '/boast'].includes(location.pathname);
 
   // List of paths that should hide the global top header
   const hideHeader = [
     '/login', 
-    '/onboarding'
+    '/onboarding',
+    '/boast'
   ].includes(location.pathname) || 
   location.pathname.startsWith('/logs/') || 
   location.pathname.startsWith('/complaint/');
