@@ -15,7 +15,7 @@ export default function Boast() {
       avatar: '🧑‍🌾',
       badges: [{ text: '채소', type: 'bg-orange-100 text-orange-800' }, { text: '의성 마늘', type: 'bg-red-100 text-red-800' }],
       content: '"올해 가뭄 다 이겨내고 오늘 아침에 땅에서 캔 단단한 의성 육쪽마늘입니다. 알이 꽉 차서 알싸한 향이 아주 기가 막힙니다. 구경들 하고 가세요."',
-      image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600',
+      image: '/images/boast/img_001.png',
       likes: 128,
       comments: 42,
       isLiked: false
@@ -26,7 +26,7 @@ export default function Boast() {
       avatar: '👩‍🌾',
       badges: [{ text: '과일', type: 'bg-orange-100 text-orange-800' }, { text: '담양 샤인머스켓', type: 'bg-orange-100 text-orange-800' }],
       content: '"새벽이슬 맞히면서 하우스에서 정성껏 키운 샤인머스켓입니다. 한 알 한 알 탱글탱글하게 수확 잘 되어서 자식 보내는 마음으로 올립니다."',
-      image: '/images/gourmet/Shine_Muscat.png',
+      image: '/images/boast/img_002.png',
       likes: 256,
       comments: 89,
       isLiked: true
