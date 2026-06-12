@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Heart, MessageSquare, Share2, Volume2, Sprout } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -17,7 +17,7 @@ export default function Boast() {
     window.speechSynthesis.speak(utterance);
   };
 
-  const feed = [
+  const [posts, setPosts] = useState([
     {
       id: 1,
       author: '경북 의성 - 김포근 농부님',
@@ -40,7 +40,15 @@ export default function Boast() {
       comments: 89,
       isLiked: true
     }
-  ];
+  ]);
+
+  const toggleLike = (id: number) => {
+    setPosts(prev => prev.map(post => 
+      post.id === id 
+        ? { ...post, isLiked: !post.isLiked, likes: post.isLiked ? post.likes - 1 : post.likes + 1 } 
+        : post
+    ));
+  };
 
   return (
     <div className="bg-[#D1E8D1] min-h-screen font-sans flex flex-col pb-6 relative">
@@ -72,7 +80,7 @@ export default function Boast() {
 
         {/* Feed List */}
         <div className="space-y-6">
-          {feed.map(post => (
+          {posts.map(post => (
             <div key={post.id} className="bg-white rounded-[32px] overflow-hidden shadow-md border border-gray-100">
               {/* Post Header */}
               <div className="p-5 flex gap-3 items-start">
@@ -106,17 +114,23 @@ export default function Boast() {
               {/* Bottom Bar */}
               <div className="px-5 py-4 flex items-center justify-between bg-[#F8FAF8]">
                 <div className="flex gap-6">
-                  <button className={`flex items-center gap-1.5 font-bold ${post.isLiked ? 'text-[#1E8449]' : 'text-gray-600'}`}>
-                    <Heart size={20} strokeWidth={2.5} className={post.isLiked ? "fill-[#1E8449]" : ""} />
+                  <motion.button 
+                    whileTap={{ scale: 0.8 }}
+                    onClick={() => toggleLike(post.id)}
+                    className={`flex items-center gap-1.5 font-bold transition-colors ${post.isLiked ? 'text-red-500' : 'text-gray-600'}`}
+                  >
+                    <motion.div animate={post.isLiked ? { scale: [1, 1.3, 1] } : { scale: 1 }} transition={{ duration: 0.3 }}>
+                      <Heart size={22} strokeWidth={post.isLiked ? 0 : 2.5} className={post.isLiked ? "fill-red-500" : ""} />
+                    </motion.div>
                     <span>{post.likes}</span>
-                  </button>
+                  </motion.button>
                   <button className="flex items-center gap-1.5 font-bold text-gray-600">
-                    <MessageSquare size={20} strokeWidth={2.5} />
+                    <MessageSquare size={22} strokeWidth={2.5} />
                     <span className="text-[13px]">칭찬하기 {post.comments}</span>
                   </button>
                 </div>
                 <button className="text-gray-500">
-                  <Share2 size={20} strokeWidth={2.5} />
+                  <Share2 size={22} strokeWidth={2.5} />
                 </button>
               </div>
             </div>
