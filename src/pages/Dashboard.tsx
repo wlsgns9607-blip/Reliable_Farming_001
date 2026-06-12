@@ -399,7 +399,7 @@ export default function Dashboard() {
             icon={<Store size={48} className="text-black" />} 
             label={<>든든 미식광장</>} 
             className="h-48"
-            onClick={() => {}}
+            onClick={() => navigate('/gourmet')}
           />
         </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { Mic, Calendar, User as UserIcon, Settings, ChevronLeft, MapPin, MessageSquare, Home, Plus, Volume2 } from 'lucide-react';
+import { Mic, Calendar, User as UserIcon, Settings, ChevronLeft, MapPin, MessageSquare, Home, Plus, Volume2, Search } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const isHome = location.pathname === '/';
   // List of paths that should have the bottom nav
-  const showBottomNav = ['/ai-expert', '/logs', '/schedule', '/complaint'].includes(location.pathname);
+  const showBottomNav = ['/ai-expert', '/logs', '/schedule', '/complaint', '/gourmet'].includes(location.pathname);
 
   // List of paths that should hide the global top header
   const hideHeader = [
@@ -110,6 +110,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </>
                ) : 
                location.pathname === '/harvest' ? '수확시기' : 
+               location.pathname === '/gourmet' ? '든든 미식광장' : 
                location.pathname === '/ai-expert' ? (
                  <>
                    AI 척척박사
@@ -129,6 +130,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </h1>
           </div>
           <div className="flex items-center gap-2">
+            {location.pathname === '/gourmet' && (
+              <button className="p-2 text-[#1E8449] active:scale-90 transition-all mr-2">
+                <Search size={28} strokeWidth={3} />
+              </button>
+            )}
             {location.pathname === '/logs' && (
               <button 
                 onClick={() => navigate('/logs/create')}
