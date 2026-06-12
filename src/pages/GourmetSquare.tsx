@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 
 const products = [
@@ -33,6 +34,8 @@ const products = [
 ];
 
 export default function GourmetSquare() {
+  const navigate = useNavigate();
+
   return (
     <div className="bg-[#D1E8D1] min-h-screen font-sans flex flex-col pb-6 px-5 pt-6 relative">
       <div className="text-center space-y-2 mb-8 mt-2">
@@ -97,7 +100,7 @@ export default function GourmetSquare() {
           <h3 className="text-[17px] font-black text-[#1E8449]">제철의 수확</h3>
           <p className="text-[12px] font-bold text-[#1E8449]/80 mt-1">🌿 당일 농장 직배송 (무료)</p>
         </div>
-        <button className="text-[13px] font-black text-[#1E8449]">더보기 +</button>
+        <button onClick={() => navigate('/gourmet/list')} className="text-[13px] font-black text-[#1E8449]">더보기 +</button>
       </div>
 
       <div className="space-y-6">

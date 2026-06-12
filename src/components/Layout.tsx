@@ -20,7 +20,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     '/login', 
     '/onboarding',
     '/boast',
-    '/boast/create'
+    '/boast/create',
+    '/gourmet/list'
   ].includes(location.pathname) || 
   location.pathname.startsWith('/logs/') || 
   location.pathname.startsWith('/complaint/');

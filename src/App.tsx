@@ -14,6 +14,7 @@ import LogComment from './pages/LogComment';
 import LogWork from './pages/LogWork';
 import Login from './pages/Login';
 import GourmetSquare from './pages/GourmetSquare';
+import GourmetList from './pages/GourmetList';
 import Boast from './pages/Boast';
 import BoastCreate from './pages/BoastCreate';
 
@@ -58,6 +59,7 @@ function AppRoutes() {
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/gourmet" element={<GourmetSquare />} />
+        <Route path="/gourmet/list" element={<GourmetList />} />
         <Route path="/boast" element={<Boast />} />
         <Route path="/boast/create" element={<BoastCreate />} />
         <Route path="/ai-expert" element={<AiExpert />} />
