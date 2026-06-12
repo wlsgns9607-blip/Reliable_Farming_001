@@ -6,28 +6,28 @@ const products = [
     id: 1,
     title: '[자두 - 흑진주]',
     desc: '7월의 태양과 비가 키워낸 흑진주! 달콤함은 한여름 땡볕에 더욱 가장 맛있을 때 수확합니다. 자두의 여왕 흑진주를 만나보세요.',
-    img: 'https://images.unsplash.com/photo-1595085350993-394025b33170?w=500&auto=format&fit=crop&q=60',
+    img: '/images/gourmet/Plums.png',
     badge: '신안군 천일염'
   },
   {
     id: 2,
     title: '[샤인머스켓]',
     desc: '7월의 눈부신 햇살을 머금고 자란 프리미엄 샤인머스켓! 톡 터지는 과즙과 망고 향이 일품입니다.',
-    img: 'https://images.unsplash.com/photo-1596365851082-7e9b0d469fb5?w=500&auto=format&fit=crop&q=60',
+    img: '/images/gourmet/Shine_Muscat.png',
     badge: '가야산 샤인'
   },
   {
     id: 3,
     title: '[찰토마토]',
     desc: '7월의 햇살처럼 싱그러운 찰토마토입니다. 단단하고 맛이 진해서 샐러드나 생과로 즐기기 좋습니다.',
-    img: 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=500&auto=format&fit=crop&q=60',
+    img: '/images/gourmet/Tomatoes.png',
     badge: '논산 토마토'
   },
   {
     id: 4,
     title: '[초당옥수수]',
     desc: '7월 무더위에 수확되는 톡 터지는 달콤한 초당옥수수! 생으로 먹어도 아삭하고 달콤합니다.',
-    img: 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=500&auto=format&fit=crop&q=60',
+    img: '/images/gourmet/Corn.png',
     badge: '제주 초당'
   }
 ];
