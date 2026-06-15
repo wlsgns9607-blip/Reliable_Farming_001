@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'motion/react';
-import { 
-  Bot, 
-  Tractor, 
-  Users, 
-  MapPin, 
-  MessageCircleQuestion, 
-  Sun, 
-  CloudSun, 
+import {
+  Bot,
+  Tractor,
+  Users,
+  MapPin,
+  MessageCircleQuestion,
+  Sun,
+  CloudSun,
   Cloud,
   CloudFog,
   CloudRain,
@@ -40,6 +40,7 @@ import { X } from 'lucide-react';
 export default function Dashboard() {
   const { profile, user } = useAuth();
   const navigate = useNavigate();
+  const isHiddenEnv = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
   const [harvestInfo, setHarvestInfo] = useState<any[]>([]);
   const [onBreak, setOnBreak] = useState(false);
   const [activeSchedule, setActiveSchedule] = useState<any>(null);
@@ -89,7 +90,7 @@ export default function Dashboard() {
       } else {
         setOnBreak(false);
       }
-      
+
       const recs = await getHarvestRecommendation(month);
       setHarvestInfo(recs.slice(0, 3));
 
@@ -109,7 +110,7 @@ export default function Dashboard() {
     try {
       const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
       if (!AudioContext) return;
-      
+
       const context = new AudioContext();
       const oscillator = context.createOscillator();
       const gainNode = context.createGain();
@@ -119,7 +120,7 @@ export default function Dashboard() {
       gainNode.connect(context.destination);
 
       const now = context.currentTime;
-      
+
       const startSirenLoop = () => {
         const t = context.currentTime;
         oscillator.frequency.cancelScheduledValues(t);
@@ -133,10 +134,10 @@ export default function Dashboard() {
 
       gainNode.gain.setValueAtTime(0.3, now);
       oscillator.start();
-      
+
       sirenRef.current = { context, oscillator, interval };
       setIsSirenActive(true);
-      
+
       toast.error("🚨 SOS 사이렌이 울립니다!", {
         duration: 5000,
         style: {
@@ -183,7 +184,7 @@ export default function Dashboard() {
             <Tractor size={24} className="text-white" />
           </div>
           {profile && (
-            <button 
+            <button
               onClick={handleLogoutClick}
               className="flex items-center gap-2 text-2xl font-bold text-gray-800"
             >
@@ -192,282 +193,286 @@ export default function Dashboard() {
           )}
         </div>
 
-      {/* Welcome Break Modal */}
-      <AnimatePresence>
-        {showWelcomeModal && activeSchedule && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowWelcomeModal(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            />
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-white border-4 border-black rounded-[48px] p-10 w-full max-w-sm relative z-10 shadow-2xl"
-            >
-              <button 
+        {/* Welcome Break Modal */}
+        <AnimatePresence>
+          {showWelcomeModal && activeSchedule && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-6">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 onClick={() => setShowWelcomeModal(false)}
-                className="absolute top-6 right-6 text-gray-400 hover:text-black transition-colors"
-                id="close-welcome-modal"
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                className="bg-white border-4 border-black rounded-[48px] p-10 w-full max-w-sm relative z-10 shadow-2xl"
               >
-                <X size={32} strokeWidth={3} />
-              </button>
-              
-              <div className="flex flex-col items-center text-center space-y-6">
-                <div className="w-24 h-24 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary">
-                  {activeSchedule.type === 'travel' ? <Plane size={48} strokeWidth={2.5} /> : <Sun size={48} strokeWidth={2.5} />}
-                </div>
-                
-                <div className="space-y-4">
-                  <h3 className="text-4xl font-black text-gray-800 leading-tight">
-                    오늘은<br />
-                    <span className="text-brand-primary">"{activeSchedule.title}"</span><br />
-                    이세요!
-                  </h3>
-                  <p className="text-2xl font-bold text-gray-600 leading-relaxed">
-                    오늘만큼은 농사 걱정일랑 푹 놓으시고<br />
-                    편안한 {activeSchedule.type === 'travel' ? '여행' : '휴식'} 되세요! 🌴
-                  </p>
-                </div>
-
-                <button 
+                <button
                   onClick={() => setShowWelcomeModal(false)}
-                  className="w-full bg-brand-primary text-white py-5 rounded-[24px] border-4 border-black text-2xl font-black shadow-[0_6px_0_0_#000] active:translate-y-1 active:shadow-none transition-all"
-                  id="confirm-welcome-modal"
+                  className="absolute top-6 right-6 text-gray-400 hover:text-black transition-colors"
+                  id="close-welcome-modal"
                 >
-                  네, 알겠습니다!
+                  <X size={32} strokeWidth={3} />
                 </button>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
-      {/* Weather Header */}
-      <div className="px-5 mb-8">
-        <section className="weather-header">
-          <div className="flex justify-between items-start z-10 relative mb-8">
-            <div className="space-y-1">
-              <div className="flex items-center gap-3">
-                <h2 className="text-5xl font-bold tracking-tight">주간 날씨</h2>
-              </div>
-              <p className="text-2xl font-bold opacity-90">
-                {weatherData?.current_weather ? parseWeatherCode(weatherData.current_weather.weathercode).label : '불러오는 중...'}
-              </p>
+                <div className="flex flex-col items-center text-center space-y-6">
+                  <div className="w-24 h-24 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary">
+                    {activeSchedule.type === 'travel' ? <Plane size={48} strokeWidth={2.5} /> : <Sun size={48} strokeWidth={2.5} />}
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-4xl font-black text-gray-800 leading-tight">
+                      오늘은<br />
+                      <span className="text-brand-primary">"{activeSchedule.title}"</span><br />
+                      이세요!
+                    </h3>
+                    <p className="text-2xl font-bold text-gray-600 leading-relaxed">
+                      오늘만큼은 농사 걱정일랑 푹 놓으시고<br />
+                      편안한 {activeSchedule.type === 'travel' ? '여행' : '휴식'} 되세요! 🌴
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => setShowWelcomeModal(false)}
+                    className="w-full bg-brand-primary text-white py-5 rounded-[24px] border-4 border-black text-2xl font-black shadow-[0_6px_0_0_#000] active:translate-y-1 active:shadow-none transition-all"
+                    id="confirm-welcome-modal"
+                  >
+                    네, 알겠습니다!
+                  </button>
+                </div>
+              </motion.div>
             </div>
-            <div className="text-right flex flex-col items-end">
-              <div className="text-7xl font-bold">
-                {weatherData?.current_weather ? Math.round(weatherData.current_weather.temperature) : '--'}°
+          )}
+        </AnimatePresence>
+
+        {/* Weather Header */}
+        <div className="px-5 mb-8">
+          <section className="weather-header">
+            <div className="flex justify-between items-start z-10 relative mb-8">
+              <div className="space-y-1">
+                <div className="flex items-center gap-3">
+                  <h2 className="text-5xl font-bold tracking-tight">주간 날씨</h2>
+                </div>
+                <p className="text-2xl font-bold opacity-90">
+                  {weatherData?.current_weather ? parseWeatherCode(weatherData.current_weather.weathercode).label : '불러오는 중...'}
+                </p>
               </div>
-              <div className="flex items-center gap-2 mt-2 leading-none">
-                 <div className="flex flex-col items-center">
+              <div className="text-right flex flex-col items-end">
+                <div className="text-7xl font-bold">
+                  {weatherData?.current_weather ? Math.round(weatherData.current_weather.temperature) : '--'}°
+                </div>
+                <div className="flex items-center gap-2 mt-2 leading-none">
+                  <div className="flex flex-col items-center">
                     <div className="h-4 w-1 bg-white opacity-40 rounded-full" />
                     <div className="h-4 w-1 bg-white opacity-40 rounded-full mt-0.5" />
-                 </div>
-                 <span className="text-3xl font-bold">
-                   {weatherData?.daily?.temperature_2m_max?.[0] ? Math.round(weatherData.daily.temperature_2m_max[0]) : '--'}° /
-                 </span>
-                 <div className="flex flex-col items-center">
+                  </div>
+                  <span className="text-3xl font-bold">
+                    {weatherData?.daily?.temperature_2m_max?.[0] ? Math.round(weatherData.daily.temperature_2m_max[0]) : '--'}° /
+                  </span>
+                  <div className="flex flex-col items-center">
                     <div className="h-10 w-1 bg-white rounded-full" />
-                 </div>
-                 <span className="text-3xl font-bold">
-                   {weatherData?.daily?.temperature_2m_min?.[0] ? Math.round(weatherData.daily.temperature_2m_min[0]) : '--'}°
-                 </span>
+                  </div>
+                  <span className="text-3xl font-bold">
+                    {weatherData?.daily?.temperature_2m_min?.[0] ? Math.round(weatherData.daily.temperature_2m_min[0]) : '--'}°
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="border-t border-white/20 pt-6 flex justify-between z-10 relative text-center">
-            {nextDays.map((day, ix) => {
-              const code = weatherData?.daily?.weathercode?.[ix];
-              const parsed = typeof code === 'number' ? parseWeatherCode(code) : null;
-              let Icon = Cloud;
-              if (parsed?.icon === 'Sun') Icon = Sun;
-              if (parsed?.icon === 'CloudSun') Icon = CloudSun;
-              if (parsed?.icon === 'CloudFog') Icon = CloudFog;
-              if (parsed?.icon === 'CloudRain') Icon = CloudRain;
-              if (parsed?.icon === 'Snowflake') Icon = Snowflake;
-              if (parsed?.icon === 'CloudLightning') Icon = CloudLightning;
-              
-              const maxTemp = weatherData?.daily?.temperature_2m_max?.[ix] ? Math.round(weatherData.daily.temperature_2m_max[ix]) : '--';
-              
-              return (
-                <WeatherDay 
-                  key={ix} 
-                  day={day} 
-                  temp={maxTemp + '°'} 
-                  icon={<Icon size={36} fill="white" />} 
-                  active={ix === 0} 
-                />
-              )
-            })}
-          </div>
-        </section>
-      </div>
 
-      {/* Notice Section */}
-      <div className="px-5 mb-8">
-        <div className="bg-[#FFF9C4] border-4 border-black rounded-[32px] p-6 shadow-[4px_4px_0_0_#000] flex items-center gap-4 animate-in slide-in-from-bottom duration-700">
-          <div className="bg-[#FBC02D] p-3 rounded-full border-2 border-black shrink-0">
-             <AlertTriangle size={32} className="text-black" strokeWidth={3} />
-          </div>
-          <div>
-            <h3 className="text-2xl font-black text-gray-800 mb-1">📢 알림 (공지사항)</h3>
-            <p className="text-xl font-bold text-gray-700 leading-relaxed">
-              <span className="text-[#E64A19] font-black">SOS 버튼</span>은 위험할 때 큰 소리를 내고, <span className="text-brand-primary font-black">스피커 버튼</span>은 누르면 화면 사용법을 말로 친절하게 설명해 드려요!
-            </p>
+            <div className="border-t border-white/20 pt-6 flex justify-between z-10 relative text-center">
+              {nextDays.map((day, ix) => {
+                const code = weatherData?.daily?.weathercode?.[ix];
+                const parsed = typeof code === 'number' ? parseWeatherCode(code) : null;
+                let Icon = Cloud;
+                if (parsed?.icon === 'Sun') Icon = Sun;
+                if (parsed?.icon === 'CloudSun') Icon = CloudSun;
+                if (parsed?.icon === 'CloudFog') Icon = CloudFog;
+                if (parsed?.icon === 'CloudRain') Icon = CloudRain;
+                if (parsed?.icon === 'Snowflake') Icon = Snowflake;
+                if (parsed?.icon === 'CloudLightning') Icon = CloudLightning;
+
+                const maxTemp = weatherData?.daily?.temperature_2m_max?.[ix] ? Math.round(weatherData.daily.temperature_2m_max[ix]) : '--';
+
+                return (
+                  <WeatherDay
+                    key={ix}
+                    day={day}
+                    temp={maxTemp + '°'}
+                    icon={<Icon size={36} fill="white" />}
+                    active={ix === 0}
+                  />
+                )
+              })}
+            </div>
+          </section>
+        </div>
+
+        {/* Notice Section */}
+        <div className="px-5 mb-8">
+          <div className="bg-[#FFF9C4] border-4 border-black rounded-[32px] p-6 shadow-[4px_4px_0_0_#000] flex items-center gap-4 animate-in slide-in-from-bottom duration-700">
+            <div className="bg-[#FBC02D] p-3 rounded-full border-2 border-black shrink-0">
+              <AlertTriangle size={32} className="text-black" strokeWidth={3} />
+            </div>
+            <div>
+              <h3 className="text-2xl font-black text-gray-800 mb-1">📢 알림 (공지사항)</h3>
+              <p className="text-xl font-bold text-gray-700 leading-relaxed">
+                <span className="text-[#E64A19] font-black">SOS 버튼</span>은 위험할 때 큰 소리를 내고, <span className="text-brand-primary font-black">스피커 버튼</span>은 누르면 화면 사용법을 말로 친절하게 설명해 드려요!
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="px-5 space-y-6">
-        {/* AI Action Button (Match Green Style) */}
-        <motion.button 
-          whileTap={{ scale: 0.98 }}
-          onClick={() => navigate('/ai-expert')}
-          className="btn-figma-ai h-28 !rounded-[24px]"
-        >
-          <Bot size={40} />
-          <span className="text-3xl font-bold leading-tight">
-            AI 척척박사에게<br />물어 보기
-          </span>
-        </motion.button>
-
-        {/* Action Grid (Match Icon Colors) */}
-        <div className="grid grid-cols-2 gap-4">
-          <MenuCard 
-            icon={<Tractor size={48} className="text-black" />} 
-            label={<><span className="whitespace-nowrap">여행 및 휴식</span><br />일정</>} 
-            className="h-48"
-            onClick={() => navigate('/schedule')}
-          />
-          <MenuCard 
-            icon={<Users size={48} className="text-black" />} 
-            label={<><span className="whitespace-nowrap">우리 식구</span></>} 
-            className="h-48"
-            onClick={() => navigate('/logs')}
-          />
-          
-          {/* SOS Card (Exact Match) */}
+        <div className="px-5 space-y-6">
+          {/* AI Action Button (Match Green Style) */}
           <motion.button
-            whileHover={{ 
-              scale: 1.02,
-              boxShadow: "0px 0px 25px 10px rgba(255, 152, 0, 0.5)",
-            }}
             whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              setIsSOSModalOpen(true);
-              playSiren();
-            }}
-            className="bg-white flex flex-col items-center justify-center h-48 space-y-2 border-4 border-black rounded-[32px] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden transition-all duration-300 w-full active:translate-x-0.5 active:translate-y-0.5 active:shadow-none hover:bg-[#FFFDE7]"
+            onClick={() => navigate('/ai-expert')}
+            className="btn-figma-ai h-28 !rounded-[24px]"
           >
-             <div className="flex flex-col items-center text-[#FF9800] mb-1">
-                <div className="flex justify-center -mb-2 scale-110">
-                   <div className="w-2 h-4 bg-[#FFB74D] opacity-30 rounded-full mx-0.5" />
-                   <div className="w-2 h-6 bg-[#FFB74D] rounded-full mx-0.5" />
-                   <div className="w-2 h-4 bg-[#FFB74D] opacity-30 rounded-full mx-0.5" />
-                </div>
-                <div className="mt-4 flex flex-col items-center">
-                   <div className="flex gap-1 mb-1">
-                      <div className="w-8 h-1.5 bg-[#FF9800] rounded-full" />
-                      <div className="w-8 h-1.5 bg-[#FF9800] rounded-full" />
-                      <div className="w-8 h-1.5 bg-[#FF9800] rounded-full" />
-                   </div>
-                   <MapPin size={50} fill="currentColor" strokeWidth={1} />
-                </div>
-             </div>
-             <span className="text-3xl font-black text-[#FF9800] tracking-wider">SOS</span>
+            <Bot size={40} />
+            <span className="text-3xl font-bold leading-tight">
+              AI 척척박사에게<br />물어 보기
+            </span>
           </motion.button>
 
-          <MenuCard 
-            icon={<MessageCircleQuestion size={48} className="text-black" />} 
-            label={<>농심(農心)<br />해결소</>} 
-            className="h-48"
-            onClick={() => navigate('/complaint')}
-          />
-          <MenuCard 
-            icon={<Award size={48} className="text-black" />} 
-            label={<>든든 자랑</>} 
-            className="h-48"
-            onClick={() => navigate('/boast')}
-          />
-          <MenuCard 
-            icon={<Store size={48} className="text-black" />} 
-            label={<>든든 미식광장</>} 
-            className="h-48"
-            onClick={() => navigate('/gourmet')}
-          />
-        </div>
+          {/* Action Grid (Match Icon Colors) */}
+          <div className="grid grid-cols-2 gap-4">
+            <MenuCard
+              icon={<Tractor size={48} className="text-black" />}
+              label={<><span className="whitespace-nowrap">여행 및 휴식</span><br />일정</>}
+              className="h-48"
+              onClick={() => navigate('/schedule')}
+            />
+            <MenuCard
+              icon={<Users size={48} className="text-black" />}
+              label={<><span className="whitespace-nowrap">우리 식구</span></>}
+              className="h-48"
+              onClick={() => navigate('/logs')}
+            />
 
-        {/* Harvest Summary Card */}
-        <section className="bg-white p-5 rounded-[40px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col space-y-8 min-h-[350px]">
-          {onBreak ? (
-            <div className="flex flex-col items-center justify-center space-y-8 animate-in zoom-in duration-500">
-               <div className="w-32 h-32 bg-[#E1F5FE] rounded-full flex items-center justify-center text-[#0288D1]">
+            {/* SOS Card (Exact Match) */}
+            <motion.button
+              whileHover={{
+                scale: 1.02,
+                boxShadow: "0px 0px 25px 10px rgba(255, 152, 0, 0.5)",
+              }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setIsSOSModalOpen(true);
+                playSiren();
+              }}
+              className="bg-white flex flex-col items-center justify-center h-48 space-y-2 border-4 border-black rounded-[32px] shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden transition-all duration-300 w-full active:translate-x-0.5 active:translate-y-0.5 active:shadow-none hover:bg-[#FFFDE7]"
+            >
+              <div className="flex flex-col items-center text-[#FF9800] mb-1">
+                <div className="flex justify-center -mb-2 scale-110">
+                  <div className="w-2 h-4 bg-[#FFB74D] opacity-30 rounded-full mx-0.5" />
+                  <div className="w-2 h-6 bg-[#FFB74D] rounded-full mx-0.5" />
+                  <div className="w-2 h-4 bg-[#FFB74D] opacity-30 rounded-full mx-0.5" />
+                </div>
+                <div className="mt-4 flex flex-col items-center">
+                  <div className="flex gap-1 mb-1">
+                    <div className="w-8 h-1.5 bg-[#FF9800] rounded-full" />
+                    <div className="w-8 h-1.5 bg-[#FF9800] rounded-full" />
+                    <div className="w-8 h-1.5 bg-[#FF9800] rounded-full" />
+                  </div>
+                  <MapPin size={50} fill="currentColor" strokeWidth={1} />
+                </div>
+              </div>
+              <span className="text-3xl font-black text-[#FF9800] tracking-wider">SOS</span>
+            </motion.button>
+
+            <MenuCard
+              icon={<MessageCircleQuestion size={48} className="text-black" />}
+              label={<>농심(農心)<br />해결소</>}
+              className="h-48"
+              onClick={() => navigate('/complaint')}
+            />
+            {!isHiddenEnv && (
+              <>
+                <MenuCard
+                  icon={<Award size={48} className="text-black" />}
+                  label={<>든든 자랑</>}
+                  className="h-48"
+                  onClick={() => navigate('/boast')}
+                />
+                <MenuCard
+                  icon={<Store size={48} className="text-black" />}
+                  label={<>든든 미식광장</>}
+                  className="h-48"
+                  onClick={() => navigate('/gourmet')}
+                />
+              </>
+            )}
+          </div>
+
+          {/* Harvest Summary Card */}
+          <section className="bg-white p-5 rounded-[40px] border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col space-y-8 min-h-[350px]">
+            {onBreak ? (
+              <div className="flex flex-col items-center justify-center space-y-8 animate-in zoom-in duration-500">
+                <div className="w-32 h-32 bg-[#E1F5FE] rounded-full flex items-center justify-center text-[#0288D1]">
                   <Plane size={64} strokeWidth={2.5} />
-               </div>
-               <div className="text-center space-y-4">
+                </div>
+                <div className="text-center space-y-4">
                   <h3 className="text-5xl font-black text-[#0288D1] leading-tight">
                     편안한 휴식 시간!
                   </h3>
                   <p className="text-3xl font-bold text-gray-600 leading-relaxed">
                     AI 척척박사가 농사 걱정을<br />잠시 멈추고 기다릴게요.<br />푹 쉬고 오세요! 🌴
                   </p>
-               </div>
-            </div>
-          ) : (
-            <>
-              <h3 className="text-4xl font-black text-gray-800 text-center leading-tight">
-                이번 달 추천<br />수확 작물
-              </h3>
-              
-              <div className="grid grid-cols-3 gap-2">
-                {harvestInfo.length > 0 ? (
-                  harvestInfo.slice(0, 3).map((item, idx) => {
-                    const colors = ['bg-[#E8F5E9]', 'bg-[#FFF3E0]', 'bg-[#F1F8E9]'];
-                    return (
-                      <div key={idx} className={`${colors[idx % colors.length]} p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]`}>
-                         <span className="text-5xl leading-none flex items-center justify-center h-12 w-12">{getCropEmoji(item.name)}</span>
-                         <span className="text-xl font-black text-gray-800 text-center truncate w-full px-1">{item.name}</span>
-                      </div>
-                    );
-                  })
-                ) : (
-                  <>
-                    <div className="bg-[#E8F5E9] p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]">
-                       <span className="text-5xl leading-none h-12 w-12 flex items-center justify-center">🧄</span>
-                       <span className="text-xl font-black text-gray-800">마늘</span>
-                    </div>
-                    <div className="bg-[#FFF3E0] p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]">
-                       <span className="text-5xl leading-none h-12 w-12 flex items-center justify-center">🧅</span>
-                       <span className="text-xl font-black text-gray-800">양파</span>
-                    </div>
-                    <div className="bg-[#F1F8E9] p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]">
-                       <span className="text-5xl leading-none h-12 w-12 flex items-center justify-center">🍏</span>
-                       <span className="text-xl font-black text-gray-800">매실</span>
-                    </div>
-                  </>
-                )}
+                </div>
               </div>
-              <p className="text-2xl font-bold text-gray-500 leading-relaxed text-center pt-2">
-                지금이 바로 수확하기<br />가장 좋은 시기예요!
-              </p>
-            </>
-          )}
-        </section>
-      </div>
+            ) : (
+              <>
+                <h3 className="text-4xl font-black text-gray-800 text-center leading-tight">
+                  이번 달 추천<br />수확 작물
+                </h3>
 
-      <SOSModal 
-        isOpen={isSOSModalOpen}
-        onClose={() => setIsSOSModalOpen(false)}
-        onSiren={playSiren}
-        isSirenActive={isSirenActive}
-        onStopSiren={stopSiren}
-      />
+                <div className="grid grid-cols-3 gap-2">
+                  {harvestInfo.length > 0 ? (
+                    harvestInfo.slice(0, 3).map((item, idx) => {
+                      const colors = ['bg-[#E8F5E9]', 'bg-[#FFF3E0]', 'bg-[#F1F8E9]'];
+                      return (
+                        <div key={idx} className={`${colors[idx % colors.length]} p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]`}>
+                          <span className="text-5xl leading-none flex items-center justify-center h-12 w-12">{getCropEmoji(item.name)}</span>
+                          <span className="text-xl font-black text-gray-800 text-center truncate w-full px-1">{item.name}</span>
+                        </div>
+                      );
+                    })
+                  ) : (
+                    <>
+                      <div className="bg-[#E8F5E9] p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]">
+                        <span className="text-5xl leading-none h-12 w-12 flex items-center justify-center">🧄</span>
+                        <span className="text-xl font-black text-gray-800">마늘</span>
+                      </div>
+                      <div className="bg-[#FFF3E0] p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]">
+                        <span className="text-5xl leading-none h-12 w-12 flex items-center justify-center">🧅</span>
+                        <span className="text-xl font-black text-gray-800">양파</span>
+                      </div>
+                      <div className="bg-[#F1F8E9] p-3 rounded-2xl border-4 border-black flex flex-col items-center justify-center gap-2 shadow-[3px_3px_0_0_#000] min-h-[110px]">
+                        <span className="text-5xl leading-none h-12 w-12 flex items-center justify-center">🍏</span>
+                        <span className="text-xl font-black text-gray-800">매실</span>
+                      </div>
+                    </>
+                  )}
+                </div>
+                <p className="text-2xl font-bold text-gray-500 leading-relaxed text-center pt-2">
+                  지금이 바로 수확하기<br />가장 좋은 시기예요!
+                </p>
+              </>
+            )}
+          </section>
+        </div>
+
+        <SOSModal
+          isOpen={isSOSModalOpen}
+          onClose={() => setIsSOSModalOpen(false)}
+          onSiren={playSiren}
+          isSirenActive={isSirenActive}
+          onStopSiren={stopSiren}
+        />
       </div>
     </div>
   );
@@ -487,7 +492,7 @@ function WeatherDay({ day, temp, icon, active }: { day: string; temp: string; ic
 
 function MenuCard({ icon, label, onClick, className }: { icon: React.ReactNode; label?: React.ReactNode; onClick?: () => void; className?: string }) {
   return (
-    <motion.button 
+    <motion.button
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
