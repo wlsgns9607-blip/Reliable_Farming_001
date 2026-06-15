@@ -39,6 +39,7 @@ import { FALLBACK_HARVEST } from '../services/gemini';
 export default function Login() {
   const { loginAnonymously, loginWithGoogle, loginWithNaver, loading } = useAuth();
   const navigate = useNavigate();
+  const isHiddenEnv = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
   const [showModal, setShowModal] = useState(false);
   const [showSignupScreen, setShowSignupScreen] = useState(false);
   const [showAnonScreen, setShowAnonScreen] = useState(false);
@@ -316,16 +317,20 @@ export default function Login() {
           label={<>농심(農心)<br />해결소</>} 
           onClick={() => setShowModal(true)}
         />
-        <MenuCard 
-          icon={<Award size={40} className="text-black" />} 
-          label={<>든든 자랑</>} 
-          onClick={() => setShowModal(true)}
-        />
-        <MenuCard 
-          icon={<Store size={40} className="text-black" />} 
-          label={<>든든 미식광장</>} 
-          onClick={() => setShowModal(true)}
-        />
+        {!isHiddenEnv && (
+          <>
+            <MenuCard 
+              icon={<Award size={40} className="text-black" />} 
+              label={<>든든 자랑</>} 
+              onClick={() => setShowModal(true)}
+            />
+            <MenuCard 
+              icon={<Store size={40} className="text-black" />} 
+              label={<>든든 미식광장</>} 
+              onClick={() => setShowModal(true)}
+            />
+          </>
+        )}
       </div>
 
       {/* Harvest Guide */}
