@@ -83,3 +83,26 @@
 .content-area {
   @apply pb-32;
 }
+
+/* 태블릿 및 모바일 반응형 대응 (화면 가로폭이 1024px 이하인 기기) */
+@media (max-width: 1024px) {
+  html {
+    background-color: #C8E6C9; /* --color-brand-bg */
+  }
+  #root {
+    max-width: 768px !important;
+    box-shadow: none !important;
+  }
+  .bottom-nav-figma {
+    max-width: 768px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #root {
+    max-width: 100% !important;
+  }
+  .bottom-nav-figma {
+    max-width: 100% !important;
+  }
+}
